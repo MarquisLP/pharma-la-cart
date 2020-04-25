@@ -54,6 +54,14 @@ serverOptions.sessionMiddleware = function (req, res, next) {
 
 
 // Parse JSON in request bodies.
+// var bodyParser = require('body-parser');
+
+// bodyParser.urlencoded({
+//   limit: "10mb",
+//   extended: false
+// });
+// bodyParser.json({limit: "10mb"});
+
 serverOptions.bodyParser = require('body-parser').json();
 
 
