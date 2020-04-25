@@ -54,15 +54,15 @@ serverOptions.sessionMiddleware = function (req, res, next) {
 
 
 // Parse JSON in request bodies.
-var bodyParser = require('body-parser');
+// var bodyParser = require('body-parser');
 
-bodyParser.urlencoded({
-  limit: "10mb",
-  extended: false
-});
-bodyParser.json({limit: "10mb"});
+// bodyParser.urlencoded({
+//   limit: "10mb",
+//   extended: false
+// });
+// bodyParser.json({limit: "10mb"});
 
-serverOptions.bodyParser = bodyParser;
+serverOptions.bodyParser = require('body-parser').json();
 
 
 // Enable CORS requests from localhost and our domain only
