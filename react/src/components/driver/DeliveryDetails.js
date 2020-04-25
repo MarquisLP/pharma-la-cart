@@ -26,6 +26,10 @@ class DeliveryDetails extends React.Component {
     }
 
     this.fetchDeliveryDetails = this.fetchDeliveryDetails.bind(this)
+    this.handleAcceptDeliveryButtonClick = this.handleAcceptDeliveryButtonClick.bind(this)
+    this.handleCancelDeliveryButtonClick = this.handleCancelDeliveryButtonClick.bind(this)
+    this.handleCompleteDeliveryButtonClick = this.handleCompleteDeliveryButtonClick.bind(this)
+    this.handleReopenDeliveryButtonClick = this.handleReopenDeliveryButtonClick.bind(this)
   }
 
   componentDidMount() {
@@ -65,9 +69,54 @@ class DeliveryDetails extends React.Component {
       })
   }
 
+  updateDeliveryStatus(newStatus) {
+    // TODO: Replace Mocky call once backend is integrated.
+    let mockUrl
+    switch (newStatus) {
+      case 0:
+        mockUrl = 'http://www.mocky.io/v2/5ea49a503000006100ce2d95'
+        break
+      case 1:
+        mockUrl = 'http://www.mocky.io/v2/5ea4a2183000006100ce2da4'
+        break
+      case 2:
+        mockUrl = 'http://www.mocky.io/v2/5ea4a2253000002c00ce2da5'
+        break
+    }
+    axios.patch(
+      // `${apiUrl}/api/delivery_requests/${this.props.deliveryId}`,
+      mockUrl,
+      {
+        status: newStatus
+      }
+    )
+      .then((response) => {
+        this.setState({
+          status: response.data.status
+        })
+      })
+  }
+
+  handleAcceptDeliveryButtonClick (e) {
+    this.updateDeliveryStatus(1)
+  }
+
+  handleCancelDeliveryButtonClick (e) {
+    this.updateDeliveryStatus(0)
+  }
+
+  handleCompleteDeliveryButtonClick (e) {
+    this.updateDeliveryStatus(2)
+  }
+
+  handleReopenDeliveryButtonClick (e) {
+    this.updateDeliveryStatus(1)
+  }
+
   render() {
     let statusIcon
     let statusLabel
+    let statusButtons
 
     switch (this.state.status) {
       case 0:
@@ -80,6 +129,18 @@ class DeliveryDetails extends React.Component {
           />
         )
         statusLabel = 'Ready for Delivery'
+        statusButtons = (
+          <Grid
+            item
+          >
+            <Button
+              color='primary'
+              onClick={this.handleAcceptDeliveryButtonClick}
+            >
+              ACCEPT
+            </Button>
+          </Grid>
+        )
         break
       case 1:
         statusIcon = (
@@ -91,6 +152,30 @@ class DeliveryDetails extends React.Component {
           />
         )
         statusLabel = 'Being Delivered'
+        statusButtons = (
+          <>
+            <Grid
+              item
+            >
+              <Button
+                color='primary'
+                onClick={this.handleCompleteDeliveryButtonClick}
+              >
+                COMPLETE
+              </Button>
+            </Grid>
+            <Grid
+              item
+            >
+              <Button
+                color='primary'
+                onClick={this.handleCancelDeliveryButtonClick}
+              >
+                CANCEL
+              </Button>
+            </Grid>
+          </>
+        )
         break
       case 2:
         statusIcon = (
@@ -102,6 +187,18 @@ class DeliveryDetails extends React.Component {
           />
         )
         statusLabel = 'Delivered'
+        statusButtons = (
+          <Grid
+            item
+          >
+            <Button
+              color='primary'
+              onClick={this.handleReopenDeliveryButtonClick}
+            >
+              REOPEN
+            </Button>
+          </Grid>
+        )
         break
       case -1:
       default:
@@ -114,6 +211,7 @@ class DeliveryDetails extends React.Component {
           />
         )
         statusLabel = 'Loading...'
+        statusButtons = null
         break
     }
 
@@ -185,18 +283,10 @@ class DeliveryDetails extends React.Component {
                 { /* ====================== STATUS BUTTONS ======================= */ }
                 <Grid
                   container
-                  direction='row'
-                  justify='flex-end'
+                  direction='row-reverse'
+                  justify='space-between'
                 >
-                  <Grid
-                    item
-                  >
-                    <Button
-                      color='primary'
-                    >
-                      ACCEPT
-                    </Button>
-                  </Grid>
+                  {statusButtons}
                 </Grid>
                 <Divider
                   style={{
