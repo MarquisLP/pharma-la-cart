@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 
 const UserModelSchema = new Schema({
-  user_name: String,
+  user_name: {type: String, unique: true},
   password: String,
   role: Number,
   nested: {address: {
