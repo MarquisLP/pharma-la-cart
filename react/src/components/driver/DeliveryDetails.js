@@ -82,7 +82,7 @@ class DeliveryDetails extends React.Component {
     }
     */
     axios.patch(
-      `${apiUrl}/api/delivery_requests/${this.props.deliveryId}`,
+      `${apiUrl}/api/delivery_requests/${this.props.match.params.deliveryId}`,
       // mockUrl,
       {
         status: newStatus
