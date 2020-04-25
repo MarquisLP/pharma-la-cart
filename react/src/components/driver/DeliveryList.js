@@ -25,27 +25,20 @@ class DeliveryList extends React.Component {
 
   loadDeliveries() {
     // TODO: Replace Mocky call once backend is integrated.
-    let mockUrl
-    switch (this.state.pageNumber) {
-      case 1:
-        mockUrl = 'http://www.mocky.io/v2/5ea476233000005900ce2d2a'
-        break
-      case 2:
-        mockUrl = 'http://www.mocky.io/v2/5ea47de83000005900ce2d40'
-        break
-      case 3:
-      default:
-        mockUrl = 'http://www.mocky.io/v2/5ea47df6300000cd12ce2d41'
-        break
-    }
     axios.get(
-      // `${apiUrl}/api/delivery_request?page=${this.state.pageNumber}&size=${NUM_DELIVERIES_PER_PAGE}`
-      mockUrl
+      // `${apiUrl}/api/delivery_requests
+      // TODO: Replace with this when pagination is implemented.
+      // `${apiUrl}/api/delivery_requests?page=${this.state.pageNumber}&size=${NUM_DELIVERIES_PER_PAGE}`
+      'http://www.mocky.io/v2/5ea485713000005900ce2d57'
     )
       .then((response) => {
         this.setState({
+          /*
+          TODO: Replace with this when pagination is implemented.
           hasMorePages: response.data.hasMore,
           deliveries: response.data.delivery_requests
+          */
+          deliveries: response.data
         })
       })
   }
