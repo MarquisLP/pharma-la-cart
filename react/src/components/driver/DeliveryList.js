@@ -1,14 +1,85 @@
 import React from 'react'
 import { Card, CardHeader, CardContent, List, ListItem, ListItemText, ListItemAvatar, Tooltip, ListItemSecondaryAction, Button, CardActions, Grid, IconButton } from '@material-ui/core'
-import { LocalShipping as InDeliveryIcon, KeyboardArrowLeft as PreviousPageIcon, KeyboardArrowRight as NextPageIcon } from '@material-ui/icons'
+import { NotificationImportant as ReadyForDeliveryIcon,  LocalShipping as BeingDeliveredIcon, CheckCircle as DeliveredIcon, KeyboardArrowLeft as PreviousPageIcon, KeyboardArrowRight as NextPageIcon } from '@material-ui/icons'
+import { withRouter } from 'react-router-dom'
+import axios from 'axios'
+
+const NUM_DELIVERIES_PER_PAGE = 10
+
+const apiUrl = ''
 
 class DeliveryList extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      deliveries: [],
+      pageNumber: 1,
+      hasMorePages: false
+    }
+
+    this.loadDeliveries = this.loadDeliveries.bind(this)
+    this.handlePreviousPageButtonClick = this.handlePreviousPageButtonClick.bind(this)
+    this.handleNextPageButtonClick = this.handleNextPageButtonClick.bind(this)
+    this.handleOpenDeliveryButtonClick = this.handleOpenDeliveryButtonClick.bind(this)
+  }
+
+  loadDeliveries() {
+    // TODO: Replace Mocky call once backend is integrated.
+    let mockUrl
+    switch (this.state.pageNumber) {
+      case 1:
+        mockUrl = 'http://www.mocky.io/v2/5ea476233000005900ce2d2a'
+        break
+      case 2:
+        mockUrl = 'http://www.mocky.io/v2/5ea47de83000005900ce2d40'
+        break
+      case 3:
+      default:
+        mockUrl = 'http://www.mocky.io/v2/5ea47df6300000cd12ce2d41'
+        break
+    }
+    axios.get(
+      // `${apiUrl}/api/delivery_request?page=${this.state.pageNumber}&size=${NUM_DELIVERIES_PER_PAGE}`
+      mockUrl
+    )
+      .then((response) => {
+        this.setState({
+          hasMorePages: response.data.hasMore,
+          deliveries: response.data.delivery_requests
+        })
+      })
+  }
+
+  componentDidMount() {
+    this.loadDeliveries()
+  }
+
+  handlePreviousPageButtonClick (e) {
+    this.setState({
+      pageNumber: this.state.pageNumber - 1
+    }, () => {
+      this.loadDeliveries()
+    })
+  }
+
+  handleNextPageButtonClick (e) {
+    this.setState({
+      pageNumber: this.state.pageNumber + 1
+    }, () => {
+      this.loadDeliveries()
+    })
+  }
+
+  handleOpenDeliveryButtonClick (deliveryId) {
+    this.props.history.push(`/driver/deliveries/${deliveryId}`)
+  }
+
   render() {
     return (
       <>
         <Card
           style={{
-            minWidth: 360,
+            minWidth: 300,
             maxWidth: '100%'
           }}
         >
@@ -20,29 +91,75 @@ class DeliveryList extends React.Component {
           />
           <CardContent>
             <List>
-              <ListItem>
-                <ListItemAvatar>
-                  <Tooltip
-                    title='Being Delivered'
-                  >
-                    <InDeliveryIcon
-                      style={{
-                        fill: 'blue'
-                      }}
-                    />
-                  </Tooltip>
-                </ListItemAvatar>
-                <ListItemText
-                  primary='Delivery 1'
-                />
-                <ListItemSecondaryAction>
-                  <Button
-                    color='primary'
-                  >
-                    OPEN
-                  </Button>
-                </ListItemSecondaryAction>
-              </ListItem>
+              {
+                this.state.deliveries.map((delivery) => {
+                  let statusIcon
+                  switch (delivery.status) {
+                    case 0:
+                      statusIcon = (
+                        <Tooltip
+                          title='Ready for Delivery'
+                        >
+                          <ReadyForDeliveryIcon
+                            style={{
+                              fill: 'red'
+                            }}
+                          />
+                        </Tooltip>
+                      )
+                      break
+                    case 1:
+                      statusIcon = (
+                        <Tooltip
+                          title='Being Delivered'
+                        >
+                          <BeingDeliveredIcon
+                            style={{
+                              fill: 'blue'
+                            }}
+                          />
+                        </Tooltip>
+                      )
+                      break
+                    case 2:
+                      statusIcon = (
+                        <Tooltip
+                          title='Delivered'
+                        >
+                          <DeliveredIcon
+                            style={{
+                              fill: 'green'
+                            }}
+                          />
+                        </Tooltip>
+                      )
+                      break
+                    default:
+                      break
+                  }
+
+                  return (
+                    <ListItem
+                      key={delivery.delivery_request_id}
+                    >
+                      <ListItemAvatar>
+                        {statusIcon}
+                      </ListItemAvatar>
+                      <ListItemText
+                        primary={`Delivery ${delivery.delivery_request_id}`}
+                      />
+                      <ListItemSecondaryAction>
+                        <Button
+                          color='primary'
+                          onClick={() => this.handleOpenDeliveryButtonClick(delivery.delivery_request_id)}
+                        >
+                          OPEN
+                        </Button>
+                      </ListItemSecondaryAction>
+                    </ListItem>
+                  )
+                })
+              }
             </List>
           </CardContent>
           <CardActions>
@@ -55,9 +172,12 @@ class DeliveryList extends React.Component {
                 title='Previous Page'
               >
                 <span>
-                  <IconButton>
+                  <IconButton
+                    disabled={this.state.pageNumber === 1}
+                    onClick={this.handlePreviousPageButtonClick}
+                  >
                     <PreviousPageIcon
-                      color='primary'
+                      color={(this.state.pageNumber > 1) ? 'primary' : 'disabled'}
                     />
                   </IconButton>
                 </span>
@@ -66,9 +186,12 @@ class DeliveryList extends React.Component {
                 title='Next Page'
               >
                 <span>
-                  <IconButton>
+                  <IconButton
+                    disabled={!this.state.hasMorePages}
+                    onClick={this.handleNextPageButtonClick}
+                  >
                     <NextPageIcon
-                      color='primary'
+                      color={this.state.hasMorePages ? 'primary' : 'disabled'}
                     />
                   </IconButton>
                 </span>
@@ -81,4 +204,4 @@ class DeliveryList extends React.Component {
   }
 }
 
-export default DeliveryList
+export default withRouter(DeliveryList)
