@@ -33,6 +33,18 @@ class AddressDisplay extends React.Component {
             <TextField
               readOnly
               fullWidth
+              label='Address Line 2'
+              value={address.line2}
+            />
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            sm={6}
+          >
+            <TextField
+              readOnly
+              fullWidth
               label='City'
               value={address.city}
             />
@@ -45,8 +57,20 @@ class AddressDisplay extends React.Component {
             <TextField
               readOnly
               fullWidth
-              label='Province'
-              value={address.province}
+              label='Zip / Postal Code'
+              value={address.zip_code_or_postal_code}
+            />
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            sm={6}
+          >
+            <TextField
+              readOnly
+              fullWidth
+              label='State / Province'
+              value={address.state_or_province}
             />
           </Grid>
           <Grid
