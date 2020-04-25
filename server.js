@@ -37,6 +37,7 @@ module.exports = function(options) {
 
     // IMPORT ENDPOINT ROUTES HERE
     // Example: require('./routes/admins/signup')(server);
+    require('./routes/Sessions/session')(server);
     require('./routes/Users/user')(server);
     require('./routes/Pharmacies/pharmacy')(server);
     require('./routes/Medicines/medicine')(server);
