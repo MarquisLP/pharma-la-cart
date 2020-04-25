@@ -14,14 +14,18 @@ class DeliveryDetails extends React.Component {
       pharmacyName: 'Pharmacy',
       pharmacyAddress: {
         line1: '',
+        line2: '',
         city: '',
-        province: '',
+        state_or_province: '',
+        zip_code_or_postal_code: '',
         country: ''
       },
       patientAddress: {
         line1: '',
+        line2: '',
         city: '',
-        province: '',
+        state_or_province: '',
+        zip_code_or_postal_code: '',
         country: ''
       }
     }
