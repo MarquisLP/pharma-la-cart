@@ -229,7 +229,8 @@ class DeliveryDetails extends React.Component {
           >
             <Card
               style={{
-                maxWidth: 1000
+                maxWidth: 1000,
+                marginTop: 30
               }}
             >
               <CardHeader

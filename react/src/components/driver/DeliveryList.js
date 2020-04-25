@@ -73,7 +73,8 @@ class DeliveryList extends React.Component {
         <Card
           style={{
             minWidth: 300,
-            maxWidth: '100%'
+            maxWidth: '100%',
+            marginTop: 30
           }}
         >
           <CardHeader
