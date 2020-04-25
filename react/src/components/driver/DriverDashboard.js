@@ -12,9 +12,6 @@ class DriverDashboard extends React.Component {
           direction='column'
           justify='center'
           alignItems='center'
-          style={{
-            height: '100%'
-          }}
         >
           <DeliveryList />
         </Grid>
