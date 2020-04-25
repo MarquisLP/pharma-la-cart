@@ -41,5 +41,6 @@ module.exports = function(options) {
     require('./routes/Pharmacies/pharmacy')(server);
     require('./routes/Medicines/medicine')(server);
     require('./routes/DeliveryRequests/delivery_request')(server);
+    require('./routes/Prescriptions/prescription')(server);
     return server;
 };

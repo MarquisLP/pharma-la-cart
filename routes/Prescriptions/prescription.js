@@ -7,8 +7,8 @@ module.exports = function(server) {
 
     server.post('/api/files/', upload.single("file"), async function(req, res, next) {
       const file = req.file;
-
-      const s3FileURL = process.env.AWS_Uploaded_File_URL_LINK;
+      console.log(file);
+      //const s3FileURL = process.env.AWS_Uploaded_File_URL_LINK;
 
       let s3bucket = new AWS.S3({
         accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -30,7 +30,7 @@ module.exports = function(server) {
         if (err) {
           return res.status(500).json(err);
         } else {
-
+          console.log(data);
           // url is s3FileURL + file.originalname
           
         }
