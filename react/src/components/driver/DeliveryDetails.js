@@ -11,6 +11,7 @@ class DeliveryDetails extends React.Component {
     super(props)
     this.state = {
       status: -1,
+      pharmacyName: 'Pharmacy',
       pharmacyAddress: {
         line1: '',
         city: '',
@@ -51,6 +52,7 @@ class DeliveryDetails extends React.Component {
         )
           .then((pharmacyResponse) => {
             this.setState({
+              pharmacyName: pharmacyResponse.data.name,
               pharmacyAddress: pharmacyResponse.data.address
             })
           })
@@ -318,7 +320,7 @@ class DeliveryDetails extends React.Component {
                     <Typography
                       variant='h6'
                     >
-                      Pharmacy
+                      {this.state.pharmacyName}
                     </Typography>
                   </Grid>
                 </Grid>
