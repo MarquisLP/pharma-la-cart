@@ -3,6 +3,7 @@ import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import { createMuiTheme } from '@material-ui/core/styles';
 import Register from './components/Register';
 import DriverDashboard from './components/driver/DriverDashboard'
+import DeliveryDetails from './components/driver/DeliveryDetails';
 
 const appTheme = createMuiTheme({
   palette: {
@@ -23,6 +24,7 @@ function App() {
         <Switch>
         <Route exact path='/' component={Register} />
         <Route path='/driver/dashboard/' component={DriverDashboard} />
+        <Route path='/driver/deliveries/:deliveryId' component={DeliveryDetails} />
         </Switch>
       </BrowserRouter>
   );
