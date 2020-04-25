@@ -4,7 +4,7 @@ import { HourglassFull as LoadingIcon, NotificationImportant as ReadyForDelivery
 import axios from 'axios'
 import AddressDisplay from './AddressDisplay'
 
-const apiUrl = ''
+const apiUrl = 'http://localhost:8080'
 
 class DeliveryDetails extends React.Component {
   constructor(props) {
@@ -38,18 +38,16 @@ class DeliveryDetails extends React.Component {
 
   fetchDeliveryDetails() {
     axios.get(
-      // TODO: Replace Mocky call once backend is integrated.
-      // `${apiUrl}/api/delivery_requests/${this.props.deliveryId}`
-      'http://www.mocky.io/v2/5ea49a503000006100ce2d95'
+      `${apiUrl}/api/delivery_requests/${this.props.match.params.deliveryId}`
+      // 'http://www.mocky.io/v2/5ea49a503000006100ce2d95'
     )
       .then((deliveryResponse) => {
         this.setState({
           status: deliveryResponse.data.status,
         })
         axios.get(
-          // TODO: Replace Mocky call once backend is integrated.
-          // `${apiUrl}/api/pharmacies/${deliveryResponse.data.pharmacy_id}`
-          'http://www.mocky.io/v2/5ea49b433000002b14ce2d97'
+          `${apiUrl}/api/pharmacies/${deliveryResponse.data.pharmacy_id}`
+          // 'http://www.mocky.io/v2/5ea49b433000002b14ce2d97'
         )
           .then((pharmacyResponse) => {
             this.setState({
@@ -57,9 +55,8 @@ class DeliveryDetails extends React.Component {
             })
           })
         axios.get(
-          // TODO: Replace Mocky call once backend is integrated.
-          // `${apiUrl}/api/users/${deliveryResponse.data.recipient}`
-          'http://www.mocky.io/v2/5ea49b053000002b14ce2d96'
+          `${apiUrl}/api/users/${deliveryResponse.data.recipient}`
+          // 'http://www.mocky.io/v2/5ea49b053000002b14ce2d96'
         )
           .then((patientResponse) => {
             this.setState({
@@ -70,7 +67,7 @@ class DeliveryDetails extends React.Component {
   }
 
   updateDeliveryStatus(newStatus) {
-    // TODO: Replace Mocky call once backend is integrated.
+    /*
     let mockUrl
     switch (newStatus) {
       case 0:
@@ -83,9 +80,10 @@ class DeliveryDetails extends React.Component {
         mockUrl = 'http://www.mocky.io/v2/5ea4a2253000002c00ce2da5'
         break
     }
+    */
     axios.patch(
-      // `${apiUrl}/api/delivery_requests/${this.props.deliveryId}`,
-      mockUrl,
+      `${apiUrl}/api/delivery_requests/${this.props.deliveryId}`,
+      // mockUrl,
       {
         status: newStatus
       }

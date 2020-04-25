@@ -6,7 +6,7 @@ import axios from 'axios'
 
 const NUM_DELIVERIES_PER_PAGE = 10
 
-const apiUrl = ''
+const apiUrl = 'http://localhost:8080'
 
 class DeliveryList extends React.Component {
   constructor(props) {
@@ -24,12 +24,11 @@ class DeliveryList extends React.Component {
   }
 
   loadDeliveries() {
-    // TODO: Replace Mocky call once backend is integrated.
     axios.get(
-      // `${apiUrl}/api/delivery_requests
+      `${apiUrl}/api/delivery_requests`
       // TODO: Replace with this when pagination is implemented.
       // `${apiUrl}/api/delivery_requests?page=${this.state.pageNumber}&size=${NUM_DELIVERIES_PER_PAGE}`
-      'http://www.mocky.io/v2/5ea485713000005900ce2d57'
+      // 'http://www.mocky.io/v2/5ea485713000005900ce2d57'
     )
       .then((response) => {
         this.setState({
@@ -134,18 +133,18 @@ class DeliveryList extends React.Component {
 
                   return (
                     <ListItem
-                      key={delivery.delivery_request_id}
+                      key={delivery._id}
                     >
                       <ListItemAvatar>
                         {statusIcon}
                       </ListItemAvatar>
                       <ListItemText
-                        primary={`Delivery ${delivery.delivery_request_id}`}
+                        primary={`Delivery ${delivery._id}`}
                       />
                       <ListItemSecondaryAction>
                         <Button
                           color='primary'
-                          onClick={() => this.handleOpenDeliveryButtonClick(delivery.delivery_request_id)}
+                          onClick={() => this.handleOpenDeliveryButtonClick(delivery._id)}
                         >
                           OPEN
                         </Button>
