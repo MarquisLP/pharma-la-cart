@@ -71,8 +71,6 @@ class DeliveryList extends React.Component {
       <>
         <Card
           style={{
-            minWidth: 300,
-            maxWidth: '100%',
             marginTop: 30
           }}
         >
@@ -83,7 +81,11 @@ class DeliveryList extends React.Component {
             }}
           />
           <CardContent>
-            <List>
+            <List
+              style={{
+                minWidth: 300
+              }}
+            >
               {
                 this.state.deliveries.map((delivery) => {
                   let statusIcon
@@ -139,7 +141,7 @@ class DeliveryList extends React.Component {
                         {statusIcon}
                       </ListItemAvatar>
                       <ListItemText
-                        primary={`Delivery ${delivery._id}`}
+                        primary={`Delivery ${delivery._id.substring(delivery._id.length - 8, delivery._id.length)}`}
                       />
                       <ListItemSecondaryAction>
                         <Button

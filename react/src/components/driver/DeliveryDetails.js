@@ -260,7 +260,10 @@ class DeliveryDetails extends React.Component {
                             variant='h3'
                             align='center'
                           >
-                            Delivery 1
+                            {'Delivery ' + this.props.match.params.deliveryId.substring(
+                              this.props.match.params.deliveryId.length - 8,
+                              this.props.match.params.deliveryId.length
+                            )}
                           </Typography>
                         </Grid>
                         <Grid
