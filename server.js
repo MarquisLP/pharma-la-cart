@@ -14,9 +14,12 @@ module.exports = function(options) {
     const express = require('express');
     const server = express();
 
-    // Set connection settings for the database
-    const { Model } = require('objection');
-    Model.knex(options.knex);
+    //Set up mongoose connection
+    const mongoose = require('mongoose');
+    const mongoDB = (process.env.ATLAS_CONNECTION_URI);
+    mongoose.connect(mongoDB, { useNewUrlParser: true });
+    const db = mongoose.connection;
+    db.on('error', console.error.bind(console, 'MongoDB connection error:'));
     // Set up sessions for Express
     if (options.sessionConfig) {
         server.use(options.sessionConfig);
@@ -34,6 +37,6 @@ module.exports = function(options) {
 
     // IMPORT ENDPOINT ROUTES HERE
     // Example: require('./routes/admins/signup')(server);
-
+    require('./routes/Users/user')(server);
     return server;
 };
