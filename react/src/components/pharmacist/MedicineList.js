@@ -106,15 +106,25 @@ class MedicineList extends React.Component {
             </List>
           </CardContent>
           <CardActions>
-            <Tooltip
-              title='Add a new medicine'
+            <Grid
+              container
+              direction='row'
+              justify='flex-end'
             >
-              <IconButton>
-                <AddMedicineIcon
-                  color='primary'
-                />
-              </IconButton>
-            </Tooltip>
+              <Grid
+                item
+              >
+                <Tooltip
+                  title='Add a new medicine'
+                >
+                  <IconButton>
+                    <AddMedicineIcon
+                      color='primary'
+                    />
+                  </IconButton>
+                </Tooltip>
+              </Grid>
+            </Grid>
           </CardActions>
         </Card>
       </>
