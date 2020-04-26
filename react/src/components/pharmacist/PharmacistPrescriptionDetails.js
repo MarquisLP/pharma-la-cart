@@ -2,6 +2,7 @@ import React from 'react'
 import { CssBaseline, Card, CardHeader, Typography, Grid, CardContent, Button, Divider } from '@material-ui/core'
 import { HourglassFull as LoadingIcon, NotificationImportant as PendingIcon, Cancel as RejectedIcon, CheckCircle as AcceptedIcon, LocalShipping as ReadyForDeliveryIcon } from '@material-ui/icons'
 import axios from 'axios'
+import { withCookies, Cookies } from "react-cookie";
 
 const apiUrl = 'http://localhost:8080'
 
@@ -9,6 +10,7 @@ class PharmacistPrescriptionDetails extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      pharmacy: null,
       prescription: {
         user_name: '',
         pharmacy_id: '',
@@ -28,7 +30,18 @@ class PharmacistPrescriptionDetails extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchPrescriptionDetails()
+    const { cookies } = this.props
+    const userName = cookies.get('username')
+    axios.get(
+      `${apiUrl}/api/pharmacies/user/${userName}`
+    )
+      .then((response) => {
+        this.setState({
+          pharmacy: response.data
+        }, () => {
+          this.fetchPrescriptionDetails()
+        })
+      })
   }
 
   fetchPrescriptionDetails() {
@@ -46,6 +59,7 @@ class PharmacistPrescriptionDetails extends React.Component {
     axios.patch(
       `${apiUrl}/api/prescriptions/${this.props.match.params.prescriptionId}`,
       {
+        pharmacy_id: this.state.pharmacy._id,
         status: newStatus
       }
     )
@@ -295,4 +309,4 @@ class PharmacistPrescriptionDetails extends React.Component {
   }
 }
 
-export default PharmacistPrescriptionDetails
+export default withCookies(PharmacistPrescriptionDetails)

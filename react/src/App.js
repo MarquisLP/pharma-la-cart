@@ -28,7 +28,7 @@ function App() {
         <Route path='/driver/dashboard/' component={DriverDashboard} />
         <Route path='/driver/deliveries/:deliveryId' component={DeliveryDetails} />
         <Route path='/pharmacist/dashboard' component={PharmacistDashboard} />
-        <Route path='/pharmacist/prescriptions/:prescriptionId' component={PharmacistPrescriptionDetails} />
+        <Route path='/pharmacist/prescriptions/:prescriptionId' component={PharmacistPrescriptionDetails}/>
       </Switch>
     </BrowserRouter>
   );

@@ -4,6 +4,7 @@ import MedicineCatalog from './MedicineCatalog'
 import InventoryList from './InventoryList'
 import PrescriptionList from './PrescriptionList'
 import axios from 'axios'
+import { withCookies, Cookies } from "react-cookie";
 
 const apiUrl = 'http://localhost:8080'
 
@@ -12,8 +13,6 @@ class PharmacistDashboard extends React.Component {
     super(props)
 
     this.state = {
-      // TODO: Get user data from further up in component hierarchy (probably using Redux)
-      user: {},
       isLoadingPharmacy: true,
       pharmacy: {}
     }
@@ -26,27 +25,15 @@ class PharmacistDashboard extends React.Component {
   }
 
   fetchPharmacyData() {
-    // TODO: Remove temporary login once authentication is done.
-    axios.post(
-      `${apiUrl}/api/sessions`,
-      {
-        user_name: 'PharmacistThree',
-        password: 'clear'
-      }
+    const { cookies } = this.props
+    const userName = cookies.get('username')
+    axios.get(
+      `${apiUrl}/api/pharmacies/user/${userName}`
     )
       .then((response) => {
         this.setState({
-          user: response.data
-        }, () => {
-          axios.get(
-            `${apiUrl}/api/pharmacies/user/${this.state.user.user_name}`
-          )
-            .then((response) => {
-              this.setState({
-                isLoadingPharmacy: false,
-                pharmacy: response.data
-              })
-            })
+          isLoadingPharmacy: false,
+          pharmacy: response.data
         })
       })
   }
@@ -95,4 +82,4 @@ class PharmacistDashboard extends React.Component {
   }
 }
 
-export default PharmacistDashboard
+export default withCookies(PharmacistDashboard)
