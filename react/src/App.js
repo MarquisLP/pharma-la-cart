@@ -1,11 +1,11 @@
 import React from "react";
 import { Route, Switch, BrowserRouter } from "react-router-dom";
 import Register from "./components/auth/Register";
-import Login from "./components/auth/Login";
 import PrescriptionDetails from "./components/patient/prescription/PrescriptionDetails";
 import DriverDashboard from './components/driver/DriverDashboard'
 import DeliveryDetails from './components/driver/DeliveryDetails';
 import PrescriptionList from "./components/patient/prescription/PrescriptionList";
+import Login from "./components/auth/Login";
 
 function App() {
   return (

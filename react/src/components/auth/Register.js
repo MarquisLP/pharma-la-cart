@@ -41,7 +41,7 @@ class Register extends Component {
       password: this.state.password,
     });
 
-    fetch(`${apiUrl}/api/user/`, {
+    fetch(`${apiUrl}/api/users/`, {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
