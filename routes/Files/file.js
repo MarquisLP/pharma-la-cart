@@ -32,7 +32,7 @@ module.exports = function(server) {
   server.get('/api/files/images/:image_key', upload.array('image',1), async function(req, res, next) {
     const params = {
       Bucket: process.env.S3_BUCKET,
-      Key: req.params.aws_key
+      Key: req.params.image_key
     }
     s3.getObject(params, (err, data) => {
     if (err) console.error(err)
