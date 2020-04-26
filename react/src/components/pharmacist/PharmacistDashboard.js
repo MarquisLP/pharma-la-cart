@@ -68,14 +68,14 @@ class PharmacistDashboard extends React.Component {
               <Grid
                 item
               >
-                <MedicineCatalog />
+                <InventoryList
+                  pharmacyId={this.state.pharmacy._id}
+                />
               </Grid>
               <Grid
                 item
               >
-                <InventoryList
-                  pharmacyId={this.state.pharmacy._id}
-                />
+                <MedicineCatalog />
               </Grid>
             </Grid>
          )
