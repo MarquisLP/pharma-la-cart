@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import ListGroup from "react-bootstrap/ListGroup";
 import Alert from "react-bootstrap/Alert";
+import Button from "react-bootstrap/Button";
 
 const apiUrl = "";
 
@@ -9,7 +10,22 @@ class PrescriptionList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      prescriptions: [],
+      prescriptions: [{
+        description: "this is testing",
+        user_name: "hello there"
+      },
+      {
+        description: "this is testing",
+        user_name: "hello there"
+      },
+      {
+        description: "this is testing",
+        user_name: "hello there"
+      },
+      {
+        description: "this is testing",
+        user_name: "hello there"
+      }],
     };
   }
 
@@ -40,7 +56,6 @@ class PrescriptionList extends Component {
             <ListGroup.Item
               key={prescription.id}
               id={prescription.id}
-              variant="info"
               onClick={() => this.getPrescriptionById(prescription.id)}
             >
               {prescription.description ? (
@@ -49,6 +64,7 @@ class PrescriptionList extends Component {
               {prescription.user_name ? (
                 <div> Patient Name: {prescription.user_name} </div>
               ) : null}
+              <Button variant="link" onClick={() => this.getPrescriptionById(prescription.id)}>View Prescription</Button>
             </ListGroup.Item>
           ))
         ) : (

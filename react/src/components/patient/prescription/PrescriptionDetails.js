@@ -8,7 +8,11 @@ class PrescriptionDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      prescription: null
+      prescription: {
+        file_url: "testing",
+        user_name: "hello",
+        pharmacy_id: "123"
+      },
     };
   }
 
@@ -30,44 +34,35 @@ class PrescriptionDetails extends Component {
   render() {
     const prescription = this.state.prescription;
     return (
-      <div>
-        <Card bg="light">
-          <Card.Header>Prescription Details </Card.Header>
-          <Card.Body>
-            <Card.Text>
-              {prescription ? (
-                <ListGroup>
-                  {prescription.file_url ? (
-                    <ListGroup.Item>
-                      File Url: {prescription.file_url}
-                    </ListGroup.Item>
-                  ) : null}
-                  {prescription.user_name ? (
-                    <ListGroup.Item>
-                      Username: {prescription.user_name}
-                    </ListGroup.Item>
-                  ) : null}
-                  {prescription.pharmacy_id ? (
-                    <ListGroup.Item>
-                      Pharmacy Id: {prescription.pharmacy_id}
-                    </ListGroup.Item>
-                  ) : null}
-                  {prescription.status ? (
-                    <ListGroup.Item>
-                      Status: {prescription.status}
-                    </ListGroup.Item>
-                  ) : null}
-                  {prescription.description ? (
-                    <ListGroup.Item>
-                      Description: {prescription.description}
-                    </ListGroup.Item>
-                  ) : null}
-                </ListGroup>
-              ) : <ListGroup.Item> No Prescription Exist </ListGroup.Item>}
-            </Card.Text>
-          </Card.Body>
-        </Card>
-      </div>
+      <>
+        {prescription ? (
+          <ListGroup>
+            {prescription.file_url ? (
+              <ListGroup.Item>File Url: {prescription.file_url}</ListGroup.Item>
+            ) : null}
+            {prescription.user_name ? (
+              <ListGroup.Item>
+                Username: {prescription.user_name}
+              </ListGroup.Item>
+            ) : null}
+            {prescription.pharmacy_id ? (
+              <ListGroup.Item>
+                Pharmacy Id: {prescription.pharmacy_id}
+              </ListGroup.Item>
+            ) : null}
+            {prescription.status ? (
+              <ListGroup.Item>Status: {prescription.status}</ListGroup.Item>
+            ) : null}
+            {prescription.description ? (
+              <ListGroup.Item>
+                Description: {prescription.description}
+              </ListGroup.Item>
+            ) : null}
+          </ListGroup>
+        ) : (
+          <div> No Prescription exist </div>
+        )}
+      </>
     );
   }
 }
