@@ -34,6 +34,7 @@ class MedicineList extends React.Component {
                 >
                   <Typography
                     variant='h4'
+                    align='center'
                   >
                     Medicine Inventory
                   </Typography>
