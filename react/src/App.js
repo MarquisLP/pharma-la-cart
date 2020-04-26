@@ -6,7 +6,7 @@ import DriverDashboard from './components/driver/DriverDashboard'
 import DeliveryDetails from './components/driver/DeliveryDetails';
 import PrescriptionList from "./components/patient/prescription/PrescriptionList";
 import Login from "./components/auth/Login";
-
+import Dashboard from "./components/patient/Dashboard";
 function App() {
   return (
     <BrowserRouter>
@@ -19,6 +19,7 @@ function App() {
           path="/prescriptions/:id"
           component={PrescriptionDetails}
         />
+        <Route exact path="/patient/dashboard" component={Dashboard} />
         <Route path='/driver/dashboard/' component={DriverDashboard} />
         <Route path='/driver/deliveries/:deliveryId' component={DeliveryDetails} />
       </Switch>

@@ -2,25 +2,22 @@ import React, { Component } from "react";
 import axios from "axios";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
-const apiUrl = "";
+import Button from "react-bootstrap/Button";
+const apiUrl = "http://localhost:8080";
 
 class PrescriptionDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      prescription: {
-        file_url: "testing",
-        user_name: "hello",
-        pharmacy_id: "123"
-      },
     };
   }
 
   componentDidMount() {
     const prescriptionId = this.props.match.params.id;
     return axios
-      .get(`${apiUrl}/prescriptions/${prescriptionId}`)
+      .get(`${apiUrl}/api/prescriptions/${prescriptionId}`)
       .then((response) => {
+        console.log(response.data);
         this.setState({
           prescription: response.data,
         });
@@ -31,8 +28,13 @@ class PrescriptionDetails extends Component {
       });
   }
 
+  getPrescriptions() {
+    this.props.history.push('/prescriptions');
+  }
+
   render() {
     const prescription = this.state.prescription;
+    console.log(prescription);
     return (
       <>
         {prescription ? (
@@ -62,6 +64,7 @@ class PrescriptionDetails extends Component {
         ) : (
           <div> No Prescription exist </div>
         )}
+        <Button variant="link" onClick={() => this.getPrescriptions()}> Go Back </Button>
       </>
     );
   }

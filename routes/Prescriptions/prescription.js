@@ -41,6 +41,7 @@ module.exports = function(server) {
     server.post('/api/prescriptions/', isLoggedin, async function(req, res, next) {
       const reqPrescription = req.body
       reqPrescription.user_name = req.session.user_name
+      console.log(reqPrescription);
 
       Prescription.create(reqPrescription, function(err, newPrescription){
         if (err){
@@ -55,7 +56,7 @@ module.exports = function(server) {
           for (var i=0; i<items.length; i++) {
             var currItem = items[i];
             currItem.prescription_id = newPrescription._id
-            
+            console.log(currItem);
             PrescriptionItem.create(currItem)
           }
         }
@@ -76,6 +77,7 @@ module.exports = function(server) {
       var query  = Prescription.where({ _id: reqPrescriptionId });
       query.findOne(function (err, prescription) {
         if (prescription) {
+          console.log(prescription);
           return res.status(200).json(prescription)
         }
         return res.status(404).json("Not Found")

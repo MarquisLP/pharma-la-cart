@@ -3,36 +3,30 @@ import axios from "axios";
 import ListGroup from "react-bootstrap/ListGroup";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
+import { withRouter } from 'react-router-dom'
 
-const apiUrl = "";
+const apiUrl = "http://localhost:8080";
+const mockData ={
+  description: "Tynelol Pain Relief",
+  pharmacy_id: "5ea47ab5b2a97df4b647a7bc",
+  status: 0,
+  description: "Take medicine 2 times a day"
+};
 
 class PrescriptionList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      prescriptions: [{
-        description: "this is testing",
-        user_name: "hello there"
-      },
-      {
-        description: "this is testing",
-        user_name: "hello there"
-      },
-      {
-        description: "this is testing",
-        user_name: "hello there"
-      },
-      {
-        description: "this is testing",
-        user_name: "hello there"
-      }],
+      prescriptions: []
     };
   }
 
   componentDidMount() {
+    this.createPrescription();
     return axios
-      .get(`${apiUrl}/prescriptions`)
+      .get(`${apiUrl}/api/prescriptions/mine/`)
       .then((response) => {
+        console.log(response.data);
         this.setState({
           prescriptions: response.data,
         });
@@ -41,9 +35,28 @@ class PrescriptionList extends Component {
         console.log(error);
         return;
       });
+
+  }
+
+   createPrescription() {
+    return axios
+    .post(`${apiUrl}/api/prescriptions`, {
+      items: [],
+      ...mockData
+    })
+    .then((response) => {
+      console.log(response.data);
+      alert("Prescription created");
+    })
+    .catch((error) => {
+      console.log(error);
+      return;
+    });
   }
 
   getPrescriptionById(id) {
+    debugger;
+    console.log(id);
     this.props.history.push(`/prescriptions/${id}`);
   }
 
@@ -56,7 +69,7 @@ class PrescriptionList extends Component {
             <ListGroup.Item
               key={prescription.id}
               id={prescription.id}
-              onClick={() => this.getPrescriptionById(prescription.id)}
+              onClick={() => this.getPrescriptionById(prescription._id)}
             >
               {prescription.description ? (
                 <div> Description: {prescription.description} </div>
@@ -64,7 +77,7 @@ class PrescriptionList extends Component {
               {prescription.user_name ? (
                 <div> Patient Name: {prescription.user_name} </div>
               ) : null}
-              <Button variant="link" onClick={() => this.getPrescriptionById(prescription.id)}>View Prescription</Button>
+              <Button variant="link" onClick={() => this.getPrescriptionById(prescription._id)}>View Prescription</Button>
             </ListGroup.Item>
           ))
         ) : (
@@ -75,4 +88,4 @@ class PrescriptionList extends Component {
   }
 }
 
-export default PrescriptionList;
+export default withRouter(PrescriptionList);

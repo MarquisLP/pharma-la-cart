@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {Form,Button, NavItem, Alert} from 'react-bootstrap';
+import axios from "axios";
 
 const apiUrl = 'http://localhost:8080';
 
@@ -9,6 +10,7 @@ class Register extends Component {
     this.state = {
       username: "",
       password: "",
+      role: "",
       credentialsMatch: true,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -31,31 +33,31 @@ class Register extends Component {
     this.setState({ password: event.target.value });
   }
 
+  handleRole(event) {
+    event.preventDefault();
+    this.setState({ role: event.target.value });
+  }
+
 
   handleSubmit(event) {
-    debugger;
     event.preventDefault();
-
-    var registerCredentials = JSON.stringify({
-      username: this.state.username,
-      password: this.state.password,
-    });
-
-    fetch(`${apiUrl}/api/users/`, {
-      method: "POST",
-      credentials: "include",
-      headers: { "Content-Type": "application/json" },
-      body: registerCredentials,
-    })
-      .then((response) => response.json())
-      .then((data) => {
+    debugger;
+    axios.post(
+      `${apiUrl}/api/users`,
+      {
+        user_name: this.state.username,
+        password: this.state.password,
+        role: this.state.role
+      }
+    )
+      .then((response) => {
         debugger;
-        if (data.authorized) {
-          alert("Authorized");
-        } else {
-          this.setState({ credentialsMatch: false });
-        }
-      });
+        if ("data" in response && "_id" in response.data) {
+        this.setState({
+          credentialsMatch: true
+        })
+      }
+      })
   }
 
   componentDidMount() {}
@@ -67,14 +69,21 @@ class Register extends Component {
         <Form.Control
           type="text"
           placeholder="Enter username"
-          onChange={this.handleUsername}
+          onChange={this.handleUsername.bind(this)}
+          required
+        />
+        <Form.Label> Enter role</Form.Label>
+        <Form.Control
+          type="text"
+          placeholder="Enter role"
+          onChange={this.handleRole.bind(this)}
           required
         />
         <Form.Label> Enter password </Form.Label>
         <Form.Control
           type="password"
           placeholder="Enter password"
-          onChange={this.handlePassword}
+          onChange={this.handlePassword.bind(this)}
           required
         />
         <Button variant="primary" type="submit">
