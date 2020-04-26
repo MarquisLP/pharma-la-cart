@@ -35,7 +35,10 @@ module.exports = function(server) {
       Key: req.params.image_key
     }
     s3.getObject(params, (err, data) => {
-    if (err) console.error(err)
+    if (err) {
+    console.error(err)
+    return res.status(400).json("Bad Request");
+    }
       return res.send(data.Body)
     })
   })
