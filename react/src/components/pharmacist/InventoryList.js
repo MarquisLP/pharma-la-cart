@@ -2,21 +2,21 @@ import React from 'react'
 import { Card, CardHeader, Grid, Typography, CardContent, List, ListItem, ListItemText, CardActions, Tooltip, IconButton } from '@material-ui/core'
 import { AllInbox as InventoryIcon, Add as AddMedicineIcon } from '@material-ui/icons'
 import axios from 'axios'
+import AddInventoryDialog from './AddInventoryDialog'
 
 class InventoryList extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      medicines: [
-        {
-          '_id': '1',
-          'name': 'Tylenol'
-        }
-      ]
+      medicines: [],
+      addDialogIsOpen: false
     }
 
     this.fetchInventory = this.fetchInventory.bind(this)
+    this.handleOpenAddDialogButtonClick = this.handleOpenAddDialogButtonClick.bind(this)
+    this.handleAddDialogClose = this.handleAddDialogClose.bind(this)
+    this.handleAddDialogSuccess = this.handleAddDialogSuccess.bind(this)
   }
 
   componentDidMount() {
@@ -34,6 +34,25 @@ class InventoryList extends React.Component {
           medicines: response.data
         })
       })
+  }
+
+  handleOpenAddDialogButtonClick() {
+    this.setState({
+      addDialogIsOpen: true
+    })
+  }
+
+  handleAddDialogClose() {
+    this.setState({
+      addDialogIsOpen: false
+    })
+  }
+
+  handleAddDialogSuccess() {
+    this.setState({
+      addDialogIsOpen: false
+    })
+    this.fetchInventory()
   }
 
   render() {
@@ -100,7 +119,9 @@ class InventoryList extends React.Component {
                 <Tooltip
                   title='Add medicine to stock'
                 >
-                  <IconButton>
+                  <IconButton
+                    onClick={this.handleOpenAddDialogButtonClick}
+                  >
                     <AddMedicineIcon
                       color='primary'
                     />
@@ -110,6 +131,12 @@ class InventoryList extends React.Component {
             </Grid>
           </CardActions>
         </Card>
+        <AddInventoryDialog
+          pharmacyId={this.props.pharmacyId}
+          open={this.state.addDialogIsOpen}
+          onClose={this.handleAddDialogClose}
+          onSuccess={this.handleAddDialogSuccess}
+        />
       </>
     )
   }
