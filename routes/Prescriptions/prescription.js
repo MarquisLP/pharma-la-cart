@@ -26,6 +26,15 @@ module.exports = function(server) {
         }
       });
     })
+    
+    server.get('/api/prescriptions', isLoggedin, async function(req, res, next) {
+        var pharmacyId = req.query.pharmacy;
+        
+        var query = Prescription.where({ pharmacy_id: pharmacyId });
+        query.find(function (err, prescription_list) {
+            return res.status(200).json(prescription_list)
+        });
+    })
 
     server.get('/api/prescriptions/mine/', isLoggedin, async function(req, res, next) {
       var me = req.session.user_name;
