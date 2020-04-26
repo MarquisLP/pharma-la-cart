@@ -46,10 +46,14 @@ module.exports = function(server) {
     server.get('/api/prescriptions/:prescription_id', isLoggedin, async function(req, res, next) {
       const reqPrescriptionId = req.params.prescription_id
       var query  = Prescription.where({ _id: reqPrescriptionId });
-      query.findOne(function (err, prescription) {
+      query.findOne(async function (err, prescription) {
         if (prescription) {
           console.log(prescription);
-          return res.status(200).json(prescription)
+          items = await getPrescriptionItems(prescription._id)
+          var responseBody = {
+              ...prescription, items
+          }
+          return res.status(200).json(responseBody)
         }
         return res.status(404).json("Not Found")
       });
@@ -70,4 +74,21 @@ module.exports = function(server) {
       return res.status(404).json("Not Found")
     });
   })
+    
+  async function getPrescriptionItems(prescriptionId) {
+    var query = PrescriptionItem.where({ prescription_id: prescriptionId });
+    var items = [];
+
+    await query.find(async function (err, medicineid_list) {
+      console.log(medicineid_list);
+      for (var i=0; i<medicineid_list.length; i++) {
+        var currItem = medicineid_list[i];
+
+        var query = Medicine.where({ _id: currItem.medicine_id });
+        var medicine = await query.findOne();
+        items.push(medicine);
+      }  
+      return items; 
+    });
+  }
 }
