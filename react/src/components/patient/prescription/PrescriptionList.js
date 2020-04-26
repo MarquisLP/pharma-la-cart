@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
+import ListGroup from "react-bootstrap/ListGroup";
+import Alert from "react-bootstrap/Alert";
 
 const apiUrl = "";
 
@@ -27,21 +29,31 @@ class PrescriptionList extends Component {
 
   getPrescriptionById(id) {
     this.props.history.push(`/prescriptions/${id}`);
-
   }
 
-
   render() {
+    const prescriptions = this.state.prescriptions;
     return (
       <ListGroup>
-        {this.state.prescriptions &&
-          this.state.prescriptions.map((prescription) => (
+        {prescriptions && prescriptions.length > 0 ? (
+          prescriptions.map((prescription) => (
             <ListGroup.Item
               key={prescription.id}
               id={prescription.id}
-              onClick={this.getPrescriptionById(prescription.id)}
-            ></ListGroup.Item>
-          ))}
+              variant="info"
+              onClick={() => this.getPrescriptionById(prescription.id)}
+            >
+              {prescription.description ? (
+                <div> Description: {prescription.description} </div>
+              ) : null}
+              {prescription.user_name ? (
+                <div> Patient Name: {prescription.user_name} </div>
+              ) : null}
+            </ListGroup.Item>
+          ))
+        ) : (
+          <Alert variant="danger"> No Prescription exist for this user </Alert>
+        )}
       </ListGroup>
     );
   }
