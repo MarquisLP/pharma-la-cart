@@ -2,6 +2,8 @@ import React from 'react'
 import { Dialog, DialogTitle, DialogContent, DialogActions, TextField, Button, Select, MenuItem } from '@material-ui/core'
 import axios from 'axios'
 
+const apiUrl = 'http://localhost:8080'
+
 class AddInventoryDialog extends React.Component {
   constructor(props) {
     super(props)
@@ -22,9 +24,7 @@ class AddInventoryDialog extends React.Component {
 
   fetchMedicineCatalog() {
     axios.get(
-      // TODO: Replace Mocky call once backend is integrated.
-      // `${apiUrl}/api/medicines`
-      'http://www.mocky.io/v2/5ea505fa3000008150ce2e2a'
+      `${apiUrl}/api/medicines`
     )
       .then((response) => {
         this.setState({
@@ -43,9 +43,7 @@ class AddInventoryDialog extends React.Component {
     e.preventDefault()
 
     axios.post(
-      // TODO: Replace Mocky call once backend is integrated.
-      // `${apiUrl}/api/pharmacies/${this.props.pharmacyId}/inventory/medicines/${medicineId}`
-      'http://www.mocky.io/v2/5ea50e3e3000006100ce2e3d',
+      `${apiUrl}/api/pharmacies/${this.props.pharmacyId}/inventory/medicines/${this.state.medicineId}`,
       {
         name: this.state.name
       }

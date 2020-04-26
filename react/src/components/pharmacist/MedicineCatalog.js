@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom'
 import axios from 'axios'
 import AddMedicineDialog from './AddMedicineDialog'
 
-const apiUrl = ''
+const apiUrl = 'http://localhost:8080'
 
 class MedicineCatalog extends React.Component {
   constructor(props) {
@@ -31,9 +31,7 @@ class MedicineCatalog extends React.Component {
 
   fetchMedicines() {
     axios.get(
-      // TODO: Replace Mocky call once backend is integrated.
-      // `${apiUrl}/api/medicines`
-      'http://www.mocky.io/v2/5ea505fa3000008150ce2e2a'
+      `${apiUrl}/api/medicines`
     )
       .then((response) => {
         this.setState({

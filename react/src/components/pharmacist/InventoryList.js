@@ -4,6 +4,8 @@ import { AllInbox as InventoryIcon, Add as AddMedicineIcon } from '@material-ui/
 import axios from 'axios'
 import AddInventoryDialog from './AddInventoryDialog'
 
+const apiUrl = 'http://localhost:8080'
+
 class InventoryList extends React.Component {
   constructor(props) {
     super(props)
@@ -25,9 +27,7 @@ class InventoryList extends React.Component {
 
   fetchInventory() {
     axios.get(
-      // TODO: Replace Mocky call once backend is integrated.
-      // `${apiUrl}/api/pharmacies/${this.props.pharmacyId}/inventory/medicines`
-      'http://www.mocky.io/v2/5ea505fa3000008150ce2e2a'
+      `${apiUrl}/api/pharmacies/${this.props.pharmacyId}/inventory/medicines`
     )
       .then((response) => {
         this.setState({

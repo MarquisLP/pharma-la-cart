@@ -26,9 +26,8 @@ class PrescriptionList extends React.Component {
 
   fetchPrescriptions() {
     axios.get(
-      // TODO: Replace Mocky call once backend is integrated.
-      // `${apiUrl}/api/prescriptions/${this.props.pharmacyId}`
-      'http://www.mocky.io/v2/5ea530693000005900ce2e6b'
+      `${apiUrl}/api/prescriptions?pharmacy=${this.props.pharmacyId}`
+      // 'http://www.mocky.io/v2/5ea530693000005900ce2e6b'
     )
       .then((response) => {
         this.setState({
@@ -38,7 +37,7 @@ class PrescriptionList extends React.Component {
   }
 
   handleOpenPrescriptionButtonClick(prescriptionId) {
-    this.history.push(`${apiUrl}/api/prescriptions/${prescriptionId}`)
+    this.history.push(`/pharmacist/prescriptions/${prescriptionId}`)
   }
 
   render() {

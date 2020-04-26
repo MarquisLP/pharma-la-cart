@@ -2,6 +2,8 @@ import React from 'react'
 import { Dialog, DialogTitle, DialogContent, DialogActions, TextField, Button } from '@material-ui/core'
 import axios from 'axios'
 
+const apiUrl = 'http://localhost:8080'
+
 class AddMedicineDialog extends React.Component {
   constructor(props) {
     super(props)
@@ -23,9 +25,7 @@ class AddMedicineDialog extends React.Component {
     e.preventDefault()
 
     axios.post(
-      // TODO: Replace Mocky call once backend is integrated.
-      // `${apiUrl}/api/medicines`
-      'http://www.mocky.io/v2/5ea50e3e3000006100ce2e3d',
+      `${apiUrl}/api/medicines`,
       {
         name: this.state.name
       }

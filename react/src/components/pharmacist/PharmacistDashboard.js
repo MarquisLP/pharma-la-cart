@@ -5,7 +5,7 @@ import InventoryList from './InventoryList'
 import PrescriptionList from './PrescriptionList'
 import axios from 'axios'
 
-const apiUrl = ''
+const apiUrl = 'http://localhost:8080'
 
 class PharmacistDashboard extends React.Component {
   constructor(props) {
@@ -13,9 +13,7 @@ class PharmacistDashboard extends React.Component {
 
     this.state = {
       // TODO: Get user data from further up in component hierarchy (probably using Redux)
-      user: {
-        user_name: 'PharmacistThree'
-      },
+      user: {},
       isLoadingPharmacy: true,
       pharmacy: {}
     }
@@ -28,15 +26,27 @@ class PharmacistDashboard extends React.Component {
   }
 
   fetchPharmacyData() {
-    axios.get(
-      // TODO: Replace Mocky call once backend is integrated.
-      // `${apiUrl}/pharmacies/user/user/${this.state.user.user_name}`
-      'http://www.mocky.io/v2/5ea51f273000006100ce2e4a'
+    // TODO: Remove temporary login once authentication is done.
+    axios.post(
+      `${apiUrl}/api/sessions`,
+      {
+        user_name: 'PharmacistThree',
+        password: 'clear'
+      }
     )
       .then((response) => {
         this.setState({
-          isLoadingPharmacy: false,
-          pharmacy: response.data
+          user: response.data
+        }, () => {
+          axios.get(
+            `${apiUrl}/api/pharmacies/user/${this.state.user.user_name}`
+          )
+            .then((response) => {
+              this.setState({
+                isLoadingPharmacy: false,
+                pharmacy: response.data
+              })
+            })
         })
       })
   }
@@ -62,7 +72,7 @@ class PharmacistDashboard extends React.Component {
                 item
               >
                 <PrescriptionList
-                  pharmacyId={this.state.pharmacyId}
+                  pharmacyId={this.state.pharmacy._id}
                 />
               </Grid>
               <Grid

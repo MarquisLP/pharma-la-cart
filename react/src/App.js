@@ -4,6 +4,7 @@ import Register from './components/Register';
 import DriverDashboard from './components/driver/DriverDashboard'
 import DeliveryDetails from './components/driver/DeliveryDetails';
 import PharmacistDashboard from './components/pharmacist/PharmacistDashboard'
+import PharmacistPrescriptionDetails from './components/pharmacist/PharmacistPrescriptionDetails';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path='/driver/dashboard/' component={DriverDashboard} />
         <Route path='/driver/deliveries/:deliveryId' component={DeliveryDetails} />
         <Route path='/pharmacist/dashboard' component={PharmacistDashboard} />
+        <Route path='/pharmacist/prescriptions/:prescriptionId' component={PharmacistPrescriptionDetails} />
         </Switch>
       </BrowserRouter>
   );
