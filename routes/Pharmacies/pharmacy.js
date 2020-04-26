@@ -31,6 +31,19 @@ module.exports = function(server) {
     });
   })
 
+  server.get('/api/pharmacies/user/:owner_name', isLoggedin, async function(req, res, next) {
+    const reqOwnerName = req.params.owner_name
+    var query  = Pharmacy.where({ owner_name: reqOwnerName });
+    query.findOne(function (err, pharmacy) {
+      if (!pharmacy) {
+        return res.status(404).json("Not Found")
+      }
+      if (pharmacy) {
+        return res.status(200).json(pharmacy)
+      }
+    });
+  })
+
   server.post('/api/pharmacies/:pharmacy_id/inventory/medicines/:medicine_id', isLoggedin, async function(req, res, next) {
     const reqPharmacyId = req.params.pharmacy_id
     const reqMedicineId = req.params.medicine_id
