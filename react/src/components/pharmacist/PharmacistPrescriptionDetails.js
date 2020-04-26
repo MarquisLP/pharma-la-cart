@@ -305,7 +305,12 @@ class PharmacistPrescriptionDetails extends React.Component {
                     marginBottom: 30
                   }}
                 />
-                { /* =================== PRESCRIPTION DATA ======================= */ }
+                { /* =================== PRESCRIPTION ITEMS ======================= */ }
+                <Typography
+                  variant='h5'
+                >
+                  Items
+                </Typography>
               </CardContent>
             </Card>
           </Grid>
