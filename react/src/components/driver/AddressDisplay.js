@@ -4,6 +4,12 @@ import { Grid, TextField } from '@material-ui/core'
 class AddressDisplay extends React.Component {
   render() {
     const { address } = this.props
+    const line1 = address ? address.line1 : ''
+    const line2 = address ? address.line2 : ''
+    const city = address ? address.city : ''
+    const state_or_province = address ? address.state_or_province : ''
+    const zip_code_or_postal_code = address ? address.zip_code_or_postal_code : ''
+    const country = address ? address.country : ''
 
     return (
       <>
@@ -22,7 +28,7 @@ class AddressDisplay extends React.Component {
               readOnly
               fullWidth
               label='Address Line 1'
-              value={address.line1}
+              value={line1}
             />
           </Grid>
           <Grid
@@ -34,7 +40,7 @@ class AddressDisplay extends React.Component {
               readOnly
               fullWidth
               label='Address Line 2'
-              value={address.line2}
+              value={line2}
             />
           </Grid>
           <Grid
@@ -46,7 +52,7 @@ class AddressDisplay extends React.Component {
               readOnly
               fullWidth
               label='City'
-              value={address.city}
+              value={city}
             />
           </Grid>
           <Grid
@@ -58,7 +64,7 @@ class AddressDisplay extends React.Component {
               readOnly
               fullWidth
               label='Zip / Postal Code'
-              value={address.zip_code_or_postal_code}
+              value={zip_code_or_postal_code}
             />
           </Grid>
           <Grid
@@ -70,7 +76,7 @@ class AddressDisplay extends React.Component {
               readOnly
               fullWidth
               label='State / Province'
-              value={address.state_or_province}
+              value={state_or_province}
             />
           </Grid>
           <Grid
@@ -82,7 +88,7 @@ class AddressDisplay extends React.Component {
               readOnly
               fullWidth
               label='Country'
-              value={address.country}
+              value={country}
             />
           </Grid>
         </Grid>

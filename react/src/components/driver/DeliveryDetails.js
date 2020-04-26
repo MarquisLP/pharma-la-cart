@@ -55,9 +55,10 @@ class DeliveryDetails extends React.Component {
           // 'http://www.mocky.io/v2/5ea49b433000002b14ce2d97'
         )
           .then((pharmacyResponse) => {
+            const data = pharmacyResponse.data;
             this.setState({
-              pharmacyName: pharmacyResponse.data.name,
-              pharmacyAddress: pharmacyResponse.data.address
+              pharmacyName: data && data.name,
+              pharmacyAddress: data && data.address
             })
           })
         axios.get(
