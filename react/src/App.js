@@ -7,9 +7,11 @@ import DeliveryDetails from './components/driver/DeliveryDetails';
 import PrescriptionList from "./components/patient/prescription/PrescriptionList";
 import Login from "./components/auth/Login";
 import Dashboard from "./components/patient/Dashboard";
+import NavigationBar from "./components/shared/NavigationBar";
 function App() {
   return (
     <BrowserRouter>
+    <NavigationBar/>
       <Switch>
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />
