@@ -3,6 +3,7 @@ import { Card, CardHeader, Grid, Typography, List, ListItem, ListItemText, ListI
 import { Healing as MedicineIcon, Add as AddMedicineIcon } from '@material-ui/icons'
 import { withRouter } from 'react-router-dom'
 import axios from 'axios'
+import AddMedicineDialog from './AddMedicineDialog'
 
 const apiUrl = ''
 
@@ -13,11 +14,14 @@ class MedicineList extends React.Component {
     this.history = this.props.history
 
     this.state = {
-      medicines: []
+      medicines: [],
+      addDialogIsOpen: false
     }
 
     this.fetchMedicines = this.fetchMedicines.bind(this)
     this.handleViewMedicineButtonClick = this.handleViewMedicineButtonClick.bind(this)
+    this.handleClickOpenAddDialogButton = this.handleClickOpenAddDialogButton.bind(this)
+    this.handleCloseAddDialog = this.handleCloseAddDialog.bind(this)
   }
 
   componentDidMount() {
@@ -39,6 +43,18 @@ class MedicineList extends React.Component {
 
   handleViewMedicineButtonClick(medicineId) {
     this.history.push(`${apiUrl}/api/medicines/${medicineId}`)
+  }
+
+  handleClickOpenAddDialogButton(e) {
+    this.setState({
+      addDialogIsOpen: true
+    })
+  }
+
+  handleCloseAddDialog() {
+    this.setState({
+      addDialogIsOpen: false
+    })
   }
     
   render() {
@@ -117,7 +133,9 @@ class MedicineList extends React.Component {
                 <Tooltip
                   title='Add a new medicine'
                 >
-                  <IconButton>
+                  <IconButton
+                    onClick={this.handleClickOpenAddDialogButton}
+                  >
                     <AddMedicineIcon
                       color='primary'
                     />
@@ -127,6 +145,10 @@ class MedicineList extends React.Component {
             </Grid>
           </CardActions>
         </Card>
+        <AddMedicineDialog
+          open={this.state.addDialogIsOpen}
+          onClose={this.handleCloseAddDialog}
+        />
       </>
     )
   }
