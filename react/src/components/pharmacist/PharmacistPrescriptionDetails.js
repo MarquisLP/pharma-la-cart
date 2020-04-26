@@ -1,5 +1,5 @@
 import React from 'react'
-import { CssBaseline, Card, CardHeader, Typography, Grid, CardContent, Button, Divider } from '@material-ui/core'
+import { CssBaseline, Card, CardHeader, Typography, Grid, CardContent, Button, Divider, CardMedia } from '@material-ui/core'
 import { HourglassFull as LoadingIcon, NotificationImportant as PendingIcon, Cancel as RejectedIcon, CheckCircle as AcceptedIcon, LocalShipping as ReadyForDeliveryIcon } from '@material-ui/icons'
 import axios from 'axios'
 import { withCookies, Cookies } from "react-cookie";
@@ -234,6 +234,12 @@ class PharmacistPrescriptionDetails extends React.Component {
                 marginTop: 30
               }}
             >
+              <CardMedia
+                image={(this.state.prescription.image_uri && this.state.prescription.image_uri !== '') ? this.state.prescription.image_uri : 'https://upload.wikimedia.org/wikipedia/commons/b/b8/Placeholder-image.png'}
+                style={{
+                  height: 300
+                }}
+              />
               <CardHeader
                 title={
                   <Grid
