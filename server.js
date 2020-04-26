@@ -43,5 +43,6 @@ module.exports = function(options) {
     require('./routes/Medicines/medicine')(server);
     require('./routes/DeliveryRequests/delivery_request')(server);
     require('./routes/Prescriptions/prescription')(server);
+    require('./routes/Files/file')(server);
     return server;
 };
