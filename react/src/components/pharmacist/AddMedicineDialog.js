@@ -1,9 +1,38 @@
 import React from 'react'
 import { Dialog, DialogTitle, DialogContent, DialogActions, TextField, Button } from '@material-ui/core'
+import axios from 'axios'
 
 class AddMedicineDialog extends React.Component {
   constructor(props) {
     super(props)
+    this.state={
+      name: ''
+    }
+
+    this.handleNameFieldChange = this.handleNameFieldChange.bind(this)
+    this.handleSubmitForm = this.handleSubmitForm.bind(this)
+  }
+
+  handleNameFieldChange(e) {
+    this.setState({
+      name: e.target.value
+    })
+  }
+
+  handleSubmitForm(e) {
+    e.preventDefault()
+
+    axios.post(
+      // TODO: Replace Mocky call once backend is integrated.
+      // `${apiUrl}/api/medicines`
+      'http://www.mocky.io/v2/5ea50e3e3000006100ce2e3d',
+      {
+        name: this.state.name
+      }
+    )
+      .then((response) => {
+        this.props.onSuccess()
+      })
   }
 
   render() {
@@ -18,12 +47,16 @@ class AddMedicineDialog extends React.Component {
         <DialogTitle>
           Add Medicine
         </DialogTitle>
-        <form>
+        <form
+          onSubmit={this.handleSubmitForm}
+        >
           <DialogContent>
             <TextField
               required
               autoFocus
               label='Medicine Name'
+              value={this.state.name}
+              onChange={this.handleNameFieldChange}
             />
           </DialogContent>
           <DialogActions>

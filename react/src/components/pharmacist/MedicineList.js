@@ -22,6 +22,7 @@ class MedicineList extends React.Component {
     this.handleViewMedicineButtonClick = this.handleViewMedicineButtonClick.bind(this)
     this.handleClickOpenAddDialogButton = this.handleClickOpenAddDialogButton.bind(this)
     this.handleCloseAddDialog = this.handleCloseAddDialog.bind(this)
+    this.handleAddMedicineSuccess = this.handleAddMedicineSuccess.bind(this)
   }
 
   componentDidMount() {
@@ -55,6 +56,13 @@ class MedicineList extends React.Component {
     this.setState({
       addDialogIsOpen: false
     })
+  }
+
+  handleAddMedicineSuccess() {
+    this.setState({
+      addDialogIsOpen: false
+    })
+    this.fetchMedicines()
   }
     
   render() {
@@ -148,6 +156,7 @@ class MedicineList extends React.Component {
         <AddMedicineDialog
           open={this.state.addDialogIsOpen}
           onClose={this.handleCloseAddDialog}
+          onSuccess={this.handleAddMedicineSuccess}
         />
       </>
     )
