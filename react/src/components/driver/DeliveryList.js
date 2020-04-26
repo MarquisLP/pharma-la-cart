@@ -4,8 +4,6 @@ import { NotificationImportant as ReadyForDeliveryIcon,  LocalShipping as BeingD
 import { withRouter } from 'react-router-dom'
 import axios from 'axios'
 
-const NUM_DELIVERIES_PER_PAGE = 10
-
 const apiUrl = 'http://localhost:8080'
 
 class DeliveryList extends React.Component {
