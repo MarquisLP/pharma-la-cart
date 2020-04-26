@@ -39,7 +39,9 @@ module.exports = function(server) {
     console.error(err)
     return res.status(400).json("Bad Request");
     }
-      return res.send(data.Body)
+      res.writeHead(200, {'Content-Type': 'image/jpeg'});
+      res.write(data.Body, 'binary');
+      res.end(null, 'binary');
     })
   })
 }
