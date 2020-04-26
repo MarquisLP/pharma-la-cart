@@ -2,6 +2,7 @@ import React from 'react'
 import { Grid, CssBaseline } from '@material-ui/core'
 import MedicineCatalog from './MedicineCatalog'
 import InventoryList from './InventoryList'
+import PrescriptionList from './PrescriptionList'
 import axios from 'axios'
 
 const apiUrl = ''
@@ -57,6 +58,13 @@ class PharmacistDashboard extends React.Component {
                 marginTop: 30
               }}
             >
+              <Grid
+                item
+              >
+                <PrescriptionList
+                  pharmacyId={this.state.pharmacyId}
+                />
+              </Grid>
               <Grid
                 item
               >
