@@ -90,7 +90,11 @@ class InventoryList extends React.Component {
               </Grid>
             }
           />
-          <CardContent>
+          <CardContent
+            style={{
+              minWidth: 300
+            }}
+          >
             <List>
               {
                 this.state.medicines.map((medicine) => {
