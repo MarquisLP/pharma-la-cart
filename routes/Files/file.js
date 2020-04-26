@@ -25,11 +25,11 @@ module.exports = function(server) {
   server.post('/api/files/images', upload.array('image',1), async function(req, res, next) {
     console.log(req.body.aws_key)
     res.status(201).json({
-      key: req.body.aws_key
+      image_key: req.body.aws_key
     })
   })
 
-  server.get('/api/files/images/:aws_key', upload.array('image',1), async function(req, res, next) {
+  server.get('/api/files/images/:image_key', upload.array('image',1), async function(req, res, next) {
     const params = {
       Bucket: process.env.S3_BUCKET,
       Key: req.params.aws_key
