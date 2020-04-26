@@ -98,7 +98,7 @@ class MedicineCatalog extends React.Component {
                     variant='h4'
                     align='center'
                   >
-                    Medicine Inventory
+                    Medicine Catalog
                   </Typography>
                 </Grid>
               </Grid>
