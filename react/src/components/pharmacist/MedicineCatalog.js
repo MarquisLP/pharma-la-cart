@@ -7,7 +7,7 @@ import AddMedicineDialog from './AddMedicineDialog'
 
 const apiUrl = ''
 
-class MedicineList extends React.Component {
+class MedicineCatalog extends React.Component {
   constructor(props) {
     super(props)
 
@@ -163,4 +163,4 @@ class MedicineList extends React.Component {
   }
 }
 
-export default withRouter(MedicineList)
+export default withRouter(MedicineCatalog)

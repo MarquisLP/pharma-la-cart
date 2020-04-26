@@ -1,6 +1,6 @@
 import React from 'react'
 import { Grid, CssBaseline } from '@material-ui/core'
-import MedicineList from './MedicineList'
+import MedicineCatalog from './MedicineCatalog'
 
 class PharmacistDashboard extends React.Component {
   render() {
@@ -19,7 +19,7 @@ class PharmacistDashboard extends React.Component {
           <Grid
             item
           >
-            <MedicineList />
+            <MedicineCatalog />
           </Grid>
         </Grid>
       </>
