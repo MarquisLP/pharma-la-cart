@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Nav, Navbar } from "react-bootstrap";
 import { withCookies, Cookies } from "react-cookie";
 import { withRouter, Redirect } from "react-router-dom";
+import axios from "axios";
 
 const apiUrl = "http://localhost:8080";
 
@@ -17,23 +18,18 @@ class NavigationBar extends Component {
 
   componentDidMount() {
     const { cookies } = this.props;
-    if (cookies.get("loginCredentials")) {
-      console.log("first check");
-      console.log(cookies.get("loginCredentials"));
-      console.log("second check");
+    if (cookies.get("loginCredentials")) {;
       this.setState({
         loggedIn: true,
         loginInfo: cookies.get("loginCredentials"),
       });
     } else {
-      console.log("second check");
       this.setState({ loggedIn: false });
     }
     this.getHour();
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log("previous state check 1");
     var loginCheck = prevProps.cookies.cookies.loginCredentials;
     if (!prevState.loggedIn && loginCheck) {
       this.setState({ loggedIn: true, loginInfo: loginCheck });
@@ -47,9 +43,6 @@ class NavigationBar extends Component {
   testchanges() {
     const { cookies } = this.props;
     if (cookies.get("loginCredentials")) {
-      console.log("first check");
-      console.log(cookies.get("loginCredentials"));
-      console.log("second check");
       this.setState({
         loggedIn: true,
         loginInfo: cookies.get("loginCredentials"),
@@ -80,7 +73,6 @@ class NavigationBar extends Component {
   getHour() {
     var date = new Date();
     var hour = date.getHours();
-    console.log("just check");
     this.setState({ hour });
   }
 
@@ -106,5 +98,5 @@ class NavigationBar extends Component {
     ) : null;
   }
 }
-const Testing = withCookies(NavigationBar);
-export default withRouter(Testing);
+const Cookie = withCookies(NavigationBar);
+export default withRouter(Cookie);

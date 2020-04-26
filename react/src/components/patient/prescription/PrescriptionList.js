@@ -46,7 +46,6 @@ class PrescriptionList extends Component {
     })
     .then((response) => {
       console.log(response.data);
-      alert("Prescription created");
     })
     .catch((error) => {
       console.log(error);
@@ -55,7 +54,6 @@ class PrescriptionList extends Component {
   }
 
   getPrescriptionById(id) {
-    debugger;
     console.log(id);
     this.props.history.push(`/prescriptions/${id}`);
   }

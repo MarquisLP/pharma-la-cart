@@ -41,7 +41,6 @@ class Register extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    debugger;
     axios.post(
       `${apiUrl}/api/users`,
       {
@@ -51,7 +50,6 @@ class Register extends Component {
       }
     )
       .then((response) => {
-        debugger;
         if ("data" in response && "_id" in response.data) {
         this.setState({
           credentialsMatch: true

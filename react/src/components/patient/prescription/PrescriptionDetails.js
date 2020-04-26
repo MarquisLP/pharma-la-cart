@@ -28,8 +28,8 @@ class PrescriptionDetails extends Component {
       });
   }
 
-  getPrescriptions() {
-    this.props.history.push('/prescriptions');
+  navigateToPatientDashboard() {
+    this.props.history.push('/patient/dashboard');
   }
 
   render() {
@@ -64,7 +64,7 @@ class PrescriptionDetails extends Component {
         ) : (
           <div> No Prescription exist </div>
         )}
-        <Button variant="link" onClick={() => this.getPrescriptions()}> Go Back </Button>
+        <Button variant="link" onClick={() => this.navigateToPatientDashboard()}> Go Back </Button>
       </>
     );
   }
