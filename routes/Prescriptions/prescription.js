@@ -2,45 +2,11 @@ module.exports = function(server) {
     const { isLoggedin } = require('../route_utils')
     const Prescription = require('../../database/models/prescription')
     const PrescriptionItem = require('../../database/models/prescription_item')
-    // const multer = require("multer");
-    // var storage = multer.memoryStorage();
-    // var upload = multer({ storage: storage })
-    // var AWS = require("aws-sdk");
-
-    // server.post('/api/files/', upload.single("file"), async function(req, res, next) {
-    //   const file = req.file;
-    //   console.log(file);
-    //   //const s3FileURL = process.env.AWS_Uploaded_File_URL_LINK;
-
-    //   let s3bucket = new AWS.S3({
-    //     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    //     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    //     region: process.env.AWS_REGION
-    //   });
-
-    //   //Where you want to store your file
-
-    //   var params = {
-    //     Bucket: process.env.AWS_BUCKET_NAME,
-    //     Key: file.originalname,
-    //     Body: file.buffer,
-    //     ContentType: file.mimetype,
-    //     ACL: "public-read"
-    //   };
-
-    //   s3bucket.upload(params, function(err, data) {
-    //     if (err) {
-    //       return res.status(500).json(err);
-    //     } else {
-    //       console.log(data);
-    //       // url is s3FileURL + file.originalname
-          
-    //     }
-    //   });
 
     server.post('/api/prescriptions/', isLoggedin, async function(req, res, next) {
       const reqPrescription = req.body
       reqPrescription.user_name = req.session.user_name
+      console.log(reqPrescription);
 
       Prescription.create(reqPrescription, function(err, newPrescription){
         if (err){
@@ -55,7 +21,7 @@ module.exports = function(server) {
           for (var i=0; i<items.length; i++) {
             var currItem = items[i];
             currItem.prescription_id = newPrescription._id
-            
+            console.log(currItem);
             PrescriptionItem.create(currItem)
           }
         }
@@ -76,6 +42,7 @@ module.exports = function(server) {
       var query  = Prescription.where({ _id: reqPrescriptionId });
       query.findOne(function (err, prescription) {
         if (prescription) {
+          console.log(prescription);
           return res.status(200).json(prescription)
         }
         return res.status(404).json("Not Found")

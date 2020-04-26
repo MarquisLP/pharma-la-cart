@@ -23,4 +23,12 @@ module.exports = function(server) {
       })
     });
   })
+
+  server.get('/api/logout', async function (req,res,next) {
+    req.session = undefined;
+    res.status(200).json({
+      message: "User logged out"
+    })
+  })
+
 }

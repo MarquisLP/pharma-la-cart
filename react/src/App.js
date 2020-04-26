@@ -1,28 +1,31 @@
-import React from 'react';
-import { Route, Switch, BrowserRouter } from 'react-router-dom';
-import { createMuiTheme } from '@material-ui/core/styles';
-import Register from './components/Register';
-
-const appTheme = createMuiTheme({
-  palette: {
-    primary: {
-      main: '#f45d48',
-      contrastText: '#fff',
-    },
-    secondary: {
-      main: '#0a8080',
-      contrastText: '#fff',
-    },
-  },
-});
-
+import React from "react";
+import { Route, Switch, BrowserRouter } from "react-router-dom";
+import Register from "./components/auth/Register";
+import PrescriptionDetails from "./components/patient/prescription/PrescriptionDetails";
+import DriverDashboard from './components/driver/DriverDashboard'
+import DeliveryDetails from './components/driver/DeliveryDetails';
+import PrescriptionList from "./components/patient/prescription/PrescriptionList";
+import Login from "./components/auth/Login";
+import Dashboard from "./components/patient/Dashboard";
+import NavigationBar from "./components/shared/NavigationBar";
 function App() {
   return (
-      <BrowserRouter>
-        <Switch>
-        <Route exact path='/' component={Register} />
-        </Switch>
-      </BrowserRouter>
+    <BrowserRouter>
+    <NavigationBar/>
+      <Switch>
+        <Route exact path="/register" component={Register} />
+        <Route exact path="/" component={Login} />
+        <Route exact path="/prescriptions" component={PrescriptionList} />
+        <Route
+          exact
+          path="/prescriptions/:id"
+          component={PrescriptionDetails}
+        />
+        <Route exact path="/patient/dashboard" component={Dashboard} />
+        <Route path='/driver/dashboard/' component={DriverDashboard} />
+        <Route path='/driver/deliveries/:deliveryId' component={DeliveryDetails} />
+      </Switch>
+    </BrowserRouter>
   );
 }
 
