@@ -8,6 +8,7 @@ const DeliveryRequestModelSchema = new Schema({
   recipient: { type: String, ref: 'User' },
   deliverer: { type: String, ref: 'User' },
   pharmacy_id: { type: Schema.Types.ObjectId, ref: 'Pharmacy' },
+  prescription_id:  { type: Schema.Types.ObjectId, ref: 'Prescription' },
   status: Number
 });
 
